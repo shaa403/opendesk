@@ -1,0 +1,23 @@
+{
+   "name": "httpm",
+   "version": "1.4.0",
+   "description": "A node based utility for mirroring http/s requests using a terminal",
+   "main": "httpm.js",
+   "type": "module",
+   "scripts": {
+      "start": "node .",
+      "dev": "nodemon ."
+   },
+   "bin": {
+      "httpm": "httpm.js"
+   },
+   "keywords": [
+      "http",
+      "rest",
+      "client",
+      "http-client",
+      "request"
+  ],
+  "author": "David Audu <david40au40@gmail.com>",
+  "license": "MIT"
+}
