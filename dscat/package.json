@@ -1,0 +1,8 @@
+{
+   "name": "package.json",
+   "description": "perform actions on databases from the terminal",
+   "version": "1.0.1",
+   "private": "true",
+   "entry": "dscat.js",
+   "type": "module"
+}
