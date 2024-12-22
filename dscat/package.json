@@ -4,5 +4,8 @@
    "version": "1.0.1",
    "private": "true",
    "entry": "dscat.js",
-   "type": "module"
+   "type": "module",
+   "dependencies": {
+      "mongodb": "^6.12.0"
+   }
 }
