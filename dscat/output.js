@@ -3,7 +3,9 @@
 
 const output = {
    bold: (text, br) =>
-      process.stdout.write("\x1b[1m" + text + "\x1b[0m" + (br ? "\n" : ""))
+      process.stdout.write("\x1b[1m" + text + "\x1b[0m" + (br ? "\n" : "")),
+   dim: (text, br) =>
+      process.stdout.write("\x1b[2m" + text + "\x1b[0m" + (br ? "\n" : ""))
 }
 
 export default output;
