@@ -87,6 +87,12 @@ function list(showall) {
       });
 }
 
+function removeconn(names) {
+   const credentials = fsapi.get();
+   names.forEach(name => delete credentials[name]);
+   fsapi.set(credentials);
+}
+
 function unknowncmd(command) {
    console.log(`Unknown command : "${command || ""}".`);
    output.bold("Did you mean any of the following?", true);
@@ -101,6 +107,7 @@ function unknowncmd(command) {
 const cmd_mongo = {
    addconn,
    list,
+   removeconn,
    unknowncmd
 }
 
