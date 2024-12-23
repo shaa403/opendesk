@@ -72,8 +72,19 @@ function addconn() {
    stdout.prompt();
 }
 
-function list() {
-   console.log("Hello world");
+function list(showall) {
+   const credentials = fsapi.get();
+   if (showall)
+      Object.entries(credentials).forEach(entry => {
+         process.stdout.write("\n");
+         output.bold(" " + entry[0] + ` [${new Date(entry[1].lu).toUTCString()}] `);
+         process.stdout.write(entry[1].connstring + "\n");
+      });	
+   else
+      Object.keys(credentials).forEach((entry, index) => {
+         output.dim("   #" + (index + 1));
+         process.stdout.write(" " + entry + "\n");
+      });
 }
 
 function unknowncmd(command) {
@@ -89,6 +100,7 @@ function unknowncmd(command) {
 
 const cmd_mongo = {
    addconn,
+   list,
    unknowncmd
 }
 

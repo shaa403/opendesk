@@ -10,7 +10,7 @@ function mongo() {
    switch (argv[1]) {
       case "addconn": cmd_mongo.addconn(); break;
       case "connect": ; break;
-      case "list": cmd_mongo.list(); break;
+      case "list": cmd_mongo.list(argv.find(flag => flag === "-a")); break;
       case "removeconn": ; break;
       default:cmd_mongo.unknowncmd(argv[1]);	
    } 
