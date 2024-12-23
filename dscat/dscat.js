@@ -1,18 +1,18 @@
 
 "use strict";
 
-import ds_mongo from "./datastore/mongo.js";
+import cmd_mongo from "./commands/mongo.js";
 import output from "./output.js";
 
 const argv = process.argv.slice(2);
 
 function mongo() {
    switch (argv[1]) {
-      case "addconn": ds_mongo.addconn(); break;
+      case "addconn": cmd_mongo.addconn(); break;
       case "connect": ; break;
-      case "list": ; break;
+      case "list": cmd_mongo.list(); break;
       case "removeconn": ; break;
-      default:ds_mongo.unknowncmd(argv[1]);	
+      default:cmd_mongo.unknowncmd(argv[1]);	
    } 
 }
 
