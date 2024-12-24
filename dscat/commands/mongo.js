@@ -2,6 +2,7 @@
 "use strict";
 
 import * as readline from "node:readline";
+import createWindow from "../window.js";
 import { dirname, join } from "node:path";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { MongoClient } from "mongodb";
@@ -72,6 +73,10 @@ function addconn() {
    stdout.prompt();
 }
 
+function connect(keyname) {
+   createWindow();
+}
+
 function list(showall) {
    const credentials = fsapi.get();
    if (showall)
@@ -106,6 +111,7 @@ function unknowncmd(command) {
 
 const cmd_mongo = {
    addconn,
+   connect,
    list,
    removeconn,
    unknowncmd
