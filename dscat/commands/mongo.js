@@ -74,7 +74,7 @@ function addconn() {
 }
 
 function connect(keyname) {
-   createWindow();
+   createWindow({ database: "Mongo", name: "Netcat" });
 }
 
 function list(showall) {
