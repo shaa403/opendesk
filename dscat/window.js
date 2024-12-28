@@ -43,6 +43,12 @@ INPUT.remove = () => {
    INPUT.leftmv();
    INPUT.write(null, true);
 }
+INPUT.exec = () => {
+   if (INPUT.buffer.length > 0 && !/^\s+$/.test(INPUT.buffer)) {
+      /* parse and execute query */ 
+      process.stdout.write("\x1b[2J\x1b[3J\x1b[1;1H");	
+   } else INPUT.write(null, true);	
+}
 
 function draw_welcome_screen() {
    const welcometxt = "Welcome to dscat. Press ctrl + i to write a query, and enter to run";
@@ -94,15 +100,13 @@ export default function createWindow(params) {
       if (char === "\x09") {
          mode = mode === 1 ? 0 : 1;
          paint();
-      } else {
-         if (mode === 1) {
-            switch (char) {
-               case "\x1B[C": INPUT.rightmv(); break;
-               case "\x1B[D": INPUT.leftmv(); break;
-               case "\x7F": INPUT.remove(); break;
-               case "\r": INPUT.exec(); break;
-               default: INPUT.write(char);
-            }
+      } else if (mode === 1) {
+         switch (char) {
+            case "\x1B[C": INPUT.rightmv(); break;
+            case "\x1B[D": INPUT.leftmv(); break;
+            case "\x7F": INPUT.remove(); break;
+            case "\r": INPUT.exec(); break;
+            default: INPUT.write(char);
          }
       }
    });
