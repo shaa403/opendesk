@@ -37,11 +37,13 @@ INPUT.rightmv = () => {
    }
 }
 INPUT.remove = () => {
-   INPUT.buffer = INPUT.buffer.length + 1 === INPUT.cursor ?
+   if (INPUT.cursor > 1) {
+      INPUT.buffer = INPUT.buffer.length + 1 === INPUT.cursor ?
          INPUT.buffer.slice(0, INPUT.buffer.length - 1) :
          INPUT.buffer.slice(0, INPUT.cursor - 2) + INPUT.buffer.slice(INPUT.cursor - 1);
-   INPUT.leftmv();
-   INPUT.write(null, true);
+      INPUT.leftmv();
+      INPUT.write(null, true);
+   }   
 }
 INPUT.exec = () => {
    if (INPUT.buffer.length > 0 && !/^\s+$/.test(INPUT.buffer)) {
