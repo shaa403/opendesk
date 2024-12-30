@@ -5,6 +5,7 @@ let database;
 let name;
 let windowsize;
 let mode;
+let onCommand;
 const INPUT = {
    cursor: 1,
    buffer: ""
@@ -47,17 +48,16 @@ INPUT.remove = () => {
 }
 INPUT.exec = () => {
    if (INPUT.buffer.length > 0 && !/^\s+$/.test(INPUT.buffer)) {
-      /* parse and execute query */ 
-      process.stdout.write("\x1b[2J\x1b[3J\x1b[1;1H");	
+      onCommand(INPUT.buffer);
    } else INPUT.write(null, true);	
 }
 
-function draw_welcome_screen() {
+function DrawWelcomeScreen() {
    const welcometxt = "Welcome to dscat. Press ctrl + i to write a query, and enter to run";
    process.stdout.write(`\x1b[${windowsize[1] / 2};${Math.floor(windowsize[0] / 2) - (Math.round(welcometxt.length / 2))}H\x1b[1m${welcometxt}\x1b[0m`);
 }
 
-function get_status_line(screenwidth) {
+function getStatusLine(screenwidth) {
    const colors = ["\x1b[30;47m", "\x1b[0m"];
    const cursorpos = `\x1b[${windowsize[1]};0H\x1b[0J`;
    const construct = `${cursorpos}${colors[0]} ${database}, ${name}, line ${OUTPUT.cursor} (press ctrl + i to write a query, or ctrl + q to quit) ${colors[1]}`;
@@ -66,9 +66,9 @@ function get_status_line(screenwidth) {
 
 function paint() {
    process.stdout.write("\x1b[0;0H\x1b[2J\x1b[3J");
-   if (OUTPUT.buffer.length === 0) draw_welcome_screen();
+   if (OUTPUT.buffer.length === 0) DrawWelcomeScreen();
    
-   const statusline = mode === 0 && get_status_line(windowsize[0]);
+   const statusline = mode === 0 && getStatusLine(windowsize[0]);
    if (mode === 1) INPUT.write(null, true);
    else if (mode === 0 && statusline)
       process.stdout.write(statusline);
@@ -83,6 +83,7 @@ export default function createWindow(params) {
    name = params.name;
    windowsize = process.stdout.getWindowSize();
    mode = 0; /* 0 means read, 1 write */
+   onCommand = params.onCommand;
    params = null;
    
    process.stdin.setRawMode(true);
