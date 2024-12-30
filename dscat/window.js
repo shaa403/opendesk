@@ -4,7 +4,7 @@
 let database;
 let name;
 let windowsize;
-let mode; /* 0 means read, 1 write */
+let mode;
 const INPUT = {
    cursor: 1,
    buffer: ""
@@ -18,7 +18,7 @@ INPUT.write = (char, ghostwrite) => {
    if (!ghostwrite) {
       INPUT.buffer = INPUT.buffer.length + 1 === INPUT.cursor ?
          INPUT.buffer += char : 
-         INPUT.buffer.slice(0, INPUT.cursor) + char + INPUT.buffer.slice(INPUT.cursor);
+         INPUT.buffer.slice(0, INPUT.cursor - 1) + char + INPUT.buffer.slice(INPUT.cursor - 1);
       INPUT.cursor++;	
    }
    process.stdout.write(`\x1b[${windowsize[1]};0H\x1b[0J${INPUT.buffer}\x1b[${windowsize[1]};${INPUT.cursor}H`);	
